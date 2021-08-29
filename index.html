@@ -5,7 +5,106 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather/wireframe</title>
+    <meta charset="UTF-8" />
+    <link href="src/styles.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/094684bdeb.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Montserrat&display=swap"
+        rel="stylesheet">
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            background: linear-gradient(to top, #dfe9f3 0%, white 100%);
+            border: 2px solid #e0631a;
+            border-radius: 20px;
+            margin: 15px;
+        }
+
+        input {
+            display: block;
+            margin: 0 auto;
+            width: 40%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #e0631a;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 25px;
+            font-family: "Montserrat", sans-serif;
+            color: #e0631a;
+            font-weight: 800;
+            margin: 25px;
+        }
+
+        .fa-cloud {
+            display: block;
+            margin: 0 auto;
+            font-size: 100px;
+            color: #007cb9;
+            text-align: center;
+        }
+
+        .normal {
+            position: relative;
+            top: -100px;
+            right: 500px;
+            font-family: "Montserrat", sans-serif;
+            color: #006ec5;
+            font-weight: bolder;
+            font-size: 30px;
+        }
+
+        .classic {
+            display: block;
+            margin: 0 auto;
+            font-weight: 900;
+            color: #006ec5;
+        }
+
+        p.formal {
+            text-align: left;
+            font-size: 25px;
+            font-family: "Montserrat", sans-serif;
+            color: #e0631a;
+            font-weight: 800;
+            margin: 20px;
+            margin-left: 200px;
+        }
+
+        .col {
+            font-family: "Akaya Kanadaka", cursive;
+            font-size: 30px;
+            margin-left: 150x;
+            position: relative;
+            text-align: center;
+            width: 20px;
+        }
+
+        .fa-cloud-rain {
+            color: #007cb9;
+        }
+
+        .fa-cloud-sun {
+            color: #007cb9;
+        }
+    </style>
 </head>
 
 <body>
@@ -72,6 +171,49 @@
 
 
         <script src="src/index.js"></script>
+        <script>
+            let weather = {
+                paris: {
+                    temp: 19.7,
+                    humidity: 80
+                },
+                tokyo: {
+                    temp: 17.3,
+                    humidity: 50
+                },
+                lisbon: {
+                    temp: 30.2,
+                    humidity: 20
+                },
+                "san francisco": {
+                    temp: 20.9,
+                    humidity: 100
+                },
+                moscow: {
+                    temp: -5,
+                    humidity: 20
+                }
+            };
+            let city = prompt("enter the city");
+            console.log(city);
+            city = city.trim().toLocaleLowerCase();
+
+            if (weather[city] !== undefined) {
+                let temp = weather[city].temp;
+                let celsiusTemperature = Math.round(temp);
+                let fahrenheitTemperature = Math.round((temp * 9) / 5 + 32);
+                let humidity = weather[city].humidity;
+
+                alert(
+                    `It is currently ${celsiusTemperature} ${fahrenheitTemperature}  in ${city} with a humidity of ${humidity}%`
+                );
+            } else {
+                alert(
+                    `Sorry we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
+                );
+            }
+
+        </script>
 </body>
 
 </html>
