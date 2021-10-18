@@ -18,6 +18,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Montserrat&display=swap"
         rel="stylesheet">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 </head>
 
 <head>
@@ -44,7 +47,16 @@
             margin-top: 15px;
         }
 
+
         p {
+            text-align: center;
+            font-size: 25px;
+            font-family: "Montserrat", sans-serif;
+            color: #e0631a;
+            font-weight: 800;
+            margin: 25px;
+        }
+h1 {
             text-align: center;
             font-size: 25px;
             font-family: "Montserrat", sans-serif;
@@ -108,15 +120,17 @@
 </head>
 
 <body>
-    <form>
+    <form id="search-form">
         <div class="form-example">
-            <input type="text" placeholder="Search City" id="search" />
+            <input type="text" placeholder="Search City" id="search-input" />
         </div>
     </form>
+  
+    <h1>
+        
+    </h1>
     <p>
-        Berlin
-        <br />
-        Tuesday 15:58
+
     </p>
 
     <i class="fas fa-cloud"></i>
@@ -124,10 +138,11 @@
     <div>
         <div class="normal" style="float: right;">
             <h2>
-                Cloudy
+                <div id="temperature-description"></div>
             </h2>
-            <div class="classic">
-                <h3>21°C</h3>
+            <h3>
+            <div class="classic" id= "temp" >        
+             </h3>
             </div>
 
         </div>
@@ -172,48 +187,62 @@
 
         <script src="src/index.js"></script>
         <script>
-            let weather = {
-                paris: {
-                    temp: 19.7,
-                    humidity: 80
-                },
-                tokyo: {
-                    temp: 17.3,
-                    humidity: 50
-                },
-                lisbon: {
-                    temp: 30.2,
-                    humidity: 20
-                },
-                "san francisco": {
-                    temp: 20.9,
-                    humidity: 100
-                },
-                moscow: {
-                    temp: -5,
-                    humidity: 20
-                }
-            };
-            let city = prompt("enter the city");
-            console.log(city);
-            city = city.trim().toLocaleLowerCase();
 
-            if (weather[city] !== undefined) {
-                let temp = weather[city].temp;
-                let celsiusTemperature = Math.round(temp);
-                let fahrenheitTemperature = Math.round((temp * 9) / 5 + 32);
-                let humidity = weather[city].humidity;
+    let now = new Date();
 
-                alert(
-                    `It is currently ${celsiusTemperature} ${fahrenheitTemperature}  in ${city} with a humidity of ${humidity}%`
-                );
-            } else {
-                alert(
-                    `Sorry we don't know the weather for this city, try going to https://www.google.com/search?q=weather+${city}`
-                );
-            }
+        let hours = now.getHours();
+        if (hours < 10) {
+            hours = `0${hours}`;
+        }
+        let minutes = now.getMinutes();
+        if (minutes < 10) {
+            minutes = `0${minutes}`;
+        }
 
-        </script>
+
+    let p = document.querySelector("p");
+
+let days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+ let day = days[now.getDay()];
+
+    p.innerHTML = `${day} ${hours}:${minutes}`;
+
+/////////////////////////////////////////
+   //////////////////////////////////////////////////
+   
+function search(city){
+     let apiKey = "a969311cfcbb4a83dfad2cf7478397f9";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(ShowTemp);
+}
+
+
+    let form = document.querySelector("#search-form");
+        form.addEventListener("submit", searchCity);
+
+        function ShowTemp(response) {
+            let temperature = Math.round(response.data.main.temp);
+            let cityElement = document.querySelector("h3");
+            cityElement.innerHTML = `${temperature}°C`;
+            let description = document.querySelector("#temperature-description");
+            description.innerHTML = response.data.weather[0].description;
+        }
+
+        function searchCity(event) {
+            event.preventDefault();
+            let searchInput = document.querySelector("#search-input");
+            console.log(searchInput.value);
+            let h1 = document.querySelector("h1");
+            h1.innerHTML = ` ${searchInput.value}`;
+            let apiKey = "a969311cfcbb4a83dfad2cf7478397f9";
+            let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&appid=${apiKey}&units=metric`;
+            axios.get(apiUrl).then(ShowTemp);
+        }
+
+
+
+</script>
+
 </body>
 
 </html>
